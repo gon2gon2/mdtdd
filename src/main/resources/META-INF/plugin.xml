@@ -9,10 +9,11 @@
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.gon2gon2.mdtdd.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <toolWindow factoryClass="com.github.gon2gon2.mdtdd.TimerToolWindowFactory" id="MyTimer"/>
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.gon2gon2.mdtdd.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
+        <listener class="com.github.gon2gon2.mdtdd.listeners.MyApplicationActivationListener"
+                  topic="com.intellij.openapi.application.ApplicationActivationListener"/>
     </applicationListeners>
 </idea-plugin>

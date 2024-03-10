@@ -1,12 +1,14 @@
 package com.github.gon2gon2.mdtdd
 
+import com.github.gon2gon2.mdtdd.infra.TodoStateRepository
+import com.github.gon2gon2.mdtdd.services.TodoRepository
+import com.github.gon2gon2.mdtdd.services.TodoService
 import com.intellij.ide.highlighter.XmlFileType
 import com.intellij.openapi.components.service
 import com.intellij.psi.xml.XmlFile
 import com.intellij.testFramework.TestDataPath
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
 import com.intellij.util.PsiErrorElementUtil
-import com.github.gon2gon2.mdtdd.services.MyProjectService
 
 @TestDataPath("\$CONTENT_ROOT/src/test/testData")
 class MyPluginTest : BasePlatformTestCase() {
@@ -30,9 +32,13 @@ class MyPluginTest : BasePlatformTestCase() {
     }
 
     fun testProjectService() {
-        val projectService = project.service<MyProjectService>()
+        val projectService = project.service<TodoService>()
+        assertNotNull(projectService)
+    }
 
-        assertNotSame(projectService.getRandomNumber(), projectService.getRandomNumber())
+    fun testGetRepository() {
+        val projectService: TodoRepository = project.service<TodoStateRepository>()
+        assertNotNull(projectService)
     }
 
     override fun getTestDataPath() = "src/test/testData/rename"
