@@ -1,6 +1,10 @@
 package com.github.gon2gon2.mdtdd
 
+import com.github.gon2gon2.mdtdd.infra.TodoStateRepository
+import com.github.gon2gon2.mdtdd.services.TodoRepository
+import com.github.gon2gon2.mdtdd.services.TodoService
 import com.intellij.ide.highlighter.XmlFileType
+import com.intellij.openapi.components.service
 import com.intellij.psi.xml.XmlFile
 import com.intellij.testFramework.TestDataPath
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
@@ -25,6 +29,16 @@ class MyPluginTest : BasePlatformTestCase() {
 
     fun testRename() {
         myFixture.testRename("foo.xml", "foo_after.xml", "a2")
+    }
+
+    fun testProjectService() {
+        val projectService = project.service<TodoService>()
+        assertNotNull(projectService)
+    }
+
+    fun testGetRepository() {
+        val projectService: TodoRepository = project.service<TodoStateRepository>()
+        assertNotNull(projectService)
     }
 
     override fun getTestDataPath() = "src/test/testData/rename"

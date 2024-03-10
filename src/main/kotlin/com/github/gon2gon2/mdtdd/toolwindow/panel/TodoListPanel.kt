@@ -1,5 +1,8 @@
 package com.github.gon2gon2.mdtdd.toolwindow.panel
 
+import com.github.gon2gon2.mdtdd.services.TodoService
+import com.intellij.openapi.components.service
+import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBList
 import java.awt.FlowLayout
 import javax.swing.BoxLayout
@@ -9,7 +12,7 @@ import javax.swing.JPanel
 import javax.swing.JScrollPane
 import javax.swing.JTextField
 
-class TodoListPanel {
+class TodoListPanel(project: Project) {
     val panel = JPanel()
     private val shouldBeDoneListModel = DefaultListModel<String>()
     private val shouldBeDoneList = JBList(shouldBeDoneListModel)
@@ -23,6 +26,8 @@ class TodoListPanel {
     private val addButton = JButton("Add")
     private val doneButton = JButton("Done")
     private val removeButton = JButton("Remove")
+
+    private val todoService = project.service<TodoService>()
 
     init {
         setupUI()

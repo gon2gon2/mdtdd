@@ -8,7 +8,7 @@ import com.intellij.ui.content.ContentFactory
 
 class TimerToolWindowFactory : ToolWindowFactory {
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
-        val timerToolWindow = UnifiedToolWindow(toolWindow)
+        val timerToolWindow = UnifiedToolWindow(project)
         val contentFactory = ContentFactory.getInstance()
         val content = contentFactory.createContent(timerToolWindow.content, "", false)
         toolWindow.contentManager.addContent(content)
