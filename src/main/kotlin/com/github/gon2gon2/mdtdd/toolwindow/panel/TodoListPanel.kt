@@ -1,6 +1,7 @@
 package com.github.gon2gon2.mdtdd.toolwindow.panel
 
 import com.intellij.ui.components.JBList
+import java.awt.FlowLayout
 import javax.swing.BoxLayout
 import javax.swing.DefaultListModel
 import javax.swing.JButton
@@ -10,11 +11,18 @@ import javax.swing.JTextField
 
 class TodoListPanel {
     val panel = JPanel()
-    private val listModel = DefaultListModel<String>()
-    private val todoList = JBList(listModel)
+    private val shouldBeDoneListModel = DefaultListModel<String>()
+    private val shouldBeDoneList = JBList(shouldBeDoneListModel)
+
+    private val alreadyDoneListModel = DefaultListModel<String>()
+    private val alreadyDoneList = JBList(alreadyDoneListModel)
+
+    private val taskInput = JTextField()
+
+    private val buttonPanel = JPanel()
     private val addButton = JButton("Add")
+    private val doneButton = JButton("Done")
     private val removeButton = JButton("Remove")
-    private val taskInput = JTextField(10)
 
     init {
         setupUI()
@@ -23,9 +31,12 @@ class TodoListPanel {
 
     private fun setupUI() {
         panel.layout = BoxLayout(panel, BoxLayout.Y_AXIS)
-        panel.add(JScrollPane(todoList))
+        buttonPanel.layout = FlowLayout(FlowLayout.LEFT)
+        panel.add(JScrollPane(shouldBeDoneList))
+        panel.add(JScrollPane(alreadyDoneList))
         panel.add(taskInput)
         panel.add(addButton)
+        panel.add(doneButton)
         panel.add(removeButton)
     }
 
@@ -33,15 +44,23 @@ class TodoListPanel {
         addButton.addActionListener {
             val task = taskInput.text
             if (task.isNotBlank()) {
-                listModel.addElement(task)
-                taskInput.text = "" // Clear input field
+                shouldBeDoneListModel.addElement(task)
+                taskInput.text = ""
             }
         }
 
         removeButton.addActionListener {
-            val selectedIndex = todoList.selectedIndex
+            val selectedIndex = shouldBeDoneList.selectedIndex
             if (selectedIndex != -1) {
-                listModel.removeElementAt(selectedIndex)
+                shouldBeDoneListModel.removeElementAt(selectedIndex)
+            }
+        }
+
+        doneButton.addActionListener {
+            val selectedIndex = shouldBeDoneList.selectedIndex
+            if (selectedIndex != -1) {
+                alreadyDoneListModel.addElement(shouldBeDoneList.selectedValue)
+                shouldBeDoneListModel.removeElementAt(selectedIndex)
             }
         }
     }
