@@ -9,9 +9,12 @@ import com.intellij.openapi.project.Project
 class TodoService(project: Project) {
     private val todoRepository: TodoRepository = project.service<TodoStateRepository>()
 
+
+
     fun getAllTodoTask(): List<String> {
         return todoRepository.getAllTodo()
     }
+    fun getListener():
 
     fun addTodo(todo: String) {
         todoRepository.addTodo(todo)

@@ -2,7 +2,6 @@ package com.github.gon2gon2.mdtdd.toolwindow.panel
 
 import com.github.gon2gon2.mdtdd.services.TodoService
 import com.intellij.openapi.components.service
-import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBList
 import java.awt.FlowLayout
@@ -38,11 +37,11 @@ class TodoListPanel(project: Project) {
     }
 
     private fun loadState() {
-        thisLogger().debug("GON: start load State")
         shouldBeDoneListModel = DefaultListModel<String>()
         shouldBeDoneList = JBList(shouldBeDoneListModel)
+        shouldBeDoneListModel.addListDataListener()
 
-        thisLogger().debug("GON: {}", shouldBeDoneList)
+
         alreadyDoneListModel = DefaultListModel<String>()
         alreadyDoneList = JBList(alreadyDoneListModel)
     }
