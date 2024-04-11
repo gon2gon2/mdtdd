@@ -9,16 +9,24 @@ import com.intellij.openapi.project.Project
 class TodoService(project: Project) {
     private val todoRepository: TodoRepository = project.service<TodoStateRepository>()
 
-    fun getLastTodoList(): List<String> {
-        return todoRepository.getAll()
+    fun getAllTodoTask(): List<String> {
+        return todoRepository.getAllTodo()
     }
 
     fun addTodo(todo: String) {
-        todoRepository.add(todo)
+        todoRepository.addTodo(todo)
     }
 
     fun remove(todoIndex: Int) {
-        todoRepository.remove(todoIndex)
+        todoRepository.removeTodo(todoIndex)
     }
 
+    fun getAllDoneTask(): List<String> {
+        return todoRepository.getAllDoneTask()
+    }
+
+    fun markAsDone(todoIndex: Int) {
+        val todo = todoRepository.removeTodo(todoIndex)
+        todoRepository.addDoneTask(todo)
+    }
 }

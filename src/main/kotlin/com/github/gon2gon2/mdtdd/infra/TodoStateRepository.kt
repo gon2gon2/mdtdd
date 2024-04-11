@@ -9,27 +9,41 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 
 @Service(Service.Level.PROJECT)
 @State(
-        name = "com.github.gon2gon2.mdtdd.TodoListState",
-        storages = [Storage("TodoList.xml")]
+    name = "com.github.gon2gon2.mdtdd.TodoListState",
+    storages = [Storage("TodoList.xml")]
 )
 class TodoStateRepository : PersistentStateComponent<TodoStateRepository>, TodoRepository {
     private var todoList: MutableList<String> = mutableListOf()
+    private var doneList: MutableList<String> = mutableListOf()
 
-    override fun add(todo: String) {
+    override fun addTodo(todo: String) {
         todoList.add(todo)
     }
 
-    override fun remove(todo: String) {
+    override fun removeTodo(todo: String) {
         todoList.remove(todo)
     }
 
-    override fun remove(todoIndex: Int) {
-        todoList.removeAt(todoIndex)
+    override fun removeTodo(todoIndex: Int): String {
+        return todoList.removeAt(todoIndex)
     }
 
-    override fun getAll(): List<String> {
+    override fun getAllTodo(): List<String> {
         return todoList
     }
+
+    override fun getAllDoneTask(): List<String> {
+        return doneList
+    }
+
+    override fun addDoneTask(todo: String) {
+        doneList.add(todo)
+    }
+
+    override fun removeDoneTask(todoIndex: Int): String {
+        return doneList.removeAt(todoIndex)
+    }
+
 
     override fun getState(): TodoStateRepository = this
 
