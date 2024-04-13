@@ -14,7 +14,7 @@ import com.intellij.openapi.components.Storage
 class TodoStateRepository : SimplePersistentStateComponent<TodoStateRepository.State>(State()) {
     class State : BaseState() {
         var todoList: MutableList<String> by list()
-        val doneList: MutableList<String> by list()
+        var doneList: MutableList<String> by list()
     }
 }
 
