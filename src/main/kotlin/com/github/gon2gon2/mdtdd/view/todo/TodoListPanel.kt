@@ -1,24 +1,25 @@
-package com.github.gon2gon2.mdtdd.toolwindow.panel
+package com.github.gon2gon2.mdtdd.view.todo
 
-import com.github.gon2gon2.mdtdd.services.TodoService
-import com.intellij.openapi.components.service
-import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBList
 import java.awt.FlowLayout
 import javax.swing.BoxLayout
-import javax.swing.DefaultListModel
 import javax.swing.JButton
 import javax.swing.JPanel
 import javax.swing.JScrollPane
 import javax.swing.JTextField
 
-class TodoListPanel(project: Project) {
-    val panel = JPanel()
-    private val shouldBeDoneListModel = DefaultListModel<String>()
-    private val shouldBeDoneList = JBList(shouldBeDoneListModel)
 
-    private val alreadyDoneListModel = DefaultListModel<String>()
-    private val alreadyDoneList = JBList(alreadyDoneListModel)
+class TodoListPanel(
+        todoList: MutableList<String>,
+        doneList: MutableList<String>,
+) {
+    val panel = JPanel()
+
+    private val todoListModel = CustomListModel(todoList)
+    private val todoJbList = JBList(todoListModel)
+
+    private val doneListModel = CustomListModel(doneList)
+    private val doneJbList = JBList(doneListModel)
 
     private val taskInput = JTextField()
 
@@ -26,8 +27,6 @@ class TodoListPanel(project: Project) {
     private val addButton = JButton("Add")
     private val doneButton = JButton("Done")
     private val removeButton = JButton("Remove")
-
-    private val todoService = project.service<TodoService>()
 
     init {
         setupUI()
@@ -37,8 +36,8 @@ class TodoListPanel(project: Project) {
     private fun setupUI() {
         panel.layout = BoxLayout(panel, BoxLayout.Y_AXIS)
         buttonPanel.layout = FlowLayout(FlowLayout.LEFT)
-        panel.add(JScrollPane(shouldBeDoneList))
-        panel.add(JScrollPane(alreadyDoneList))
+        panel.add(JScrollPane(todoJbList))
+        panel.add(JScrollPane(doneJbList))
         panel.add(taskInput)
         panel.add(addButton)
         panel.add(doneButton)
@@ -49,23 +48,23 @@ class TodoListPanel(project: Project) {
         addButton.addActionListener {
             val task = taskInput.text
             if (task.isNotBlank()) {
-                shouldBeDoneListModel.addElement(task)
+                todoListModel.addElement(task)
                 taskInput.text = ""
             }
         }
 
         removeButton.addActionListener {
-            val selectedIndex = shouldBeDoneList.selectedIndex
+            val selectedIndex = todoJbList.selectedIndex
             if (selectedIndex != -1) {
-                shouldBeDoneListModel.removeElementAt(selectedIndex)
+                todoListModel.removeElementAt(selectedIndex)
             }
         }
 
         doneButton.addActionListener {
-            val selectedIndex = shouldBeDoneList.selectedIndex
+            val selectedIndex = todoJbList.selectedIndex
             if (selectedIndex != -1) {
-                alreadyDoneListModel.addElement(shouldBeDoneList.selectedValue)
-                shouldBeDoneListModel.removeElementAt(selectedIndex)
+                doneListModel.addElement(todoJbList.selectedValue)
+                todoListModel.removeElementAt(selectedIndex)
             }
         }
     }

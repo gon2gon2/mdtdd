@@ -1,6 +1,6 @@
 package com.github.gon2gon2.mdtdd
 
-import com.github.gon2gon2.mdtdd.toolwindow.UnifiedToolWindow
+import com.github.gon2gon2.mdtdd.view.UnifiedToolWindow
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
