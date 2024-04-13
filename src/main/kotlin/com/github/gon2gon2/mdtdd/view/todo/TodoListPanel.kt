@@ -1,6 +1,5 @@
 package com.github.gon2gon2.mdtdd.view.todo
 
-import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBList
 import java.awt.FlowLayout
 import javax.swing.BoxLayout
@@ -10,17 +9,17 @@ import javax.swing.JScrollPane
 import javax.swing.JTextField
 
 
-class TodoListPanel(project: Project,
-                    todoList: MutableList<String>,
-                    doneList: MutableList<String>
+class TodoListPanel(
+        todoList: MutableList<String>,
+        doneList: MutableList<String>,
 ) {
     val panel = JPanel()
 
     private val todoListModel = CustomListModel(todoList)
     private val todoJbList = JBList(todoListModel)
 
-    private val alreadyDoneListModel = CustomListModel(doneList)
-    private val alreadyDoneList = JBList(alreadyDoneListModel)
+    private val doneListModel = CustomListModel(doneList)
+    private val doneJbList = JBList(doneListModel)
 
     private val taskInput = JTextField()
 
@@ -38,7 +37,7 @@ class TodoListPanel(project: Project,
         panel.layout = BoxLayout(panel, BoxLayout.Y_AXIS)
         buttonPanel.layout = FlowLayout(FlowLayout.LEFT)
         panel.add(JScrollPane(todoJbList))
-        panel.add(JScrollPane(alreadyDoneList))
+        panel.add(JScrollPane(doneJbList))
         panel.add(taskInput)
         panel.add(addButton)
         panel.add(doneButton)
@@ -64,7 +63,7 @@ class TodoListPanel(project: Project,
         doneButton.addActionListener {
             val selectedIndex = todoJbList.selectedIndex
             if (selectedIndex != -1) {
-                alreadyDoneListModel.addElement(todoJbList.selectedValue)
+                doneListModel.addElement(todoJbList.selectedValue)
                 todoListModel.removeElementAt(selectedIndex)
             }
         }

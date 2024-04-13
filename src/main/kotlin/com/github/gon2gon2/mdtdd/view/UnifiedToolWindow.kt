@@ -13,7 +13,6 @@ class UnifiedToolWindow(project: Project) {
     private val timerPanel = TimerPanel().panel
 
     private val todoListPanel = TodoListPanel(
-            project,
             project.service<TodoStateRepository>().state.todoList,
             project.service<TodoStateRepository>().state.doneList,
     ).panel
