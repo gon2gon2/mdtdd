@@ -7,29 +7,54 @@ import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.util.xmlb.XmlSerializerUtil
 
+
+interface TodoListObserver {
+    fun onTodoListChanged()
+}
+
 @Service(Service.Level.PROJECT)
 @State(
     name = "com.github.gon2gon2.mdtdd.TodoListState",
     storages = [Storage("TodoList.xml")]
 )
 class TodoStateRepository : PersistentStateComponent<TodoStateRepository>, TodoRepository {
-    private var todoList: MutableList<String> = mutableListOf()
-    private var doneList: MutableList<String> = mutableListOf()
+    private val observers = mutableListOf<TodoListObserver>()
+    private val todoList = mutableListOf<String>()
+    private val doneList = mutableListOf<String>()
+
+    fun addObserver(observer: TodoListObserver) {
+        observers.add(observer)
+    }
+
+    fun removeObserver(observer: TodoListObserver) {
+        observers.remove(observer)
+    }
+
+    private fun notifyObservers() {
+        observers.forEach { it.onTodoListChanged() }
+    }
 
     override fun addTodo(todo: String) {
         todoList.add(todo)
+        notifyObservers()
+
     }
 
     override fun removeTodo(todo: String) {
         todoList.remove(todo)
+        notifyObservers()
+
     }
 
     override fun removeTodo(todoIndex: Int): String {
-        return todoList.removeAt(todoIndex)
+        val task = todoList.removeAt(todoIndex)
+        notifyObservers()
+        return task
     }
 
     override fun getAllTodo(): List<String> {
         return todoList
+
     }
 
     override fun getAllDoneTask(): List<String> {
@@ -38,10 +63,13 @@ class TodoStateRepository : PersistentStateComponent<TodoStateRepository>, TodoR
 
     override fun addDoneTask(todo: String) {
         doneList.add(todo)
+        notifyObservers()
     }
 
     override fun removeDoneTask(todoIndex: Int): String {
-        return doneList.removeAt(todoIndex)
+        val task = doneList.removeAt(todoIndex)
+        notifyObservers()
+        return task
     }
 
 

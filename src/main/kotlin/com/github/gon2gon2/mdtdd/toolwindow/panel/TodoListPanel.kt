@@ -1,5 +1,7 @@
 package com.github.gon2gon2.mdtdd.toolwindow.panel
 
+import com.github.gon2gon2.mdtdd.infra.TodoListModel
+import com.github.gon2gon2.mdtdd.infra.TodoStateRepository
 import com.github.gon2gon2.mdtdd.services.TodoService
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
@@ -29,6 +31,7 @@ class TodoListPanel(project: Project) {
     private val removeButton = JButton("Remove")
 
     private val todoService = project.service<TodoService>()
+    private val todoRepository = project.service<TodoStateRepository>()
 
     init {
         loadState()
@@ -37,9 +40,8 @@ class TodoListPanel(project: Project) {
     }
 
     private fun loadState() {
-        shouldBeDoneListModel = DefaultListModel<String>()
+        shouldBeDoneListModel = TodoListModel(todoRepository)
         shouldBeDoneList = JBList(shouldBeDoneListModel)
-        shouldBeDoneListModel.addListDataListener()
 
 
         alreadyDoneListModel = DefaultListModel<String>()
