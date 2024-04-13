@@ -5,7 +5,6 @@ import com.intellij.ui.components.JBList
 import java.awt.FlowLayout
 import javax.swing.AbstractListModel
 import javax.swing.BoxLayout
-import javax.swing.DefaultListModel
 import javax.swing.JButton
 import javax.swing.JPanel
 import javax.swing.JScrollPane
@@ -21,7 +20,7 @@ class CustomListModel(private val backingList: MutableList<String>) : AbstractLi
         fireIntervalAdded(this, backingList.size - 1, backingList.size - 1)
     }
 
-    fun removeElement(element: String) {
+    fun removeElementAt(element: String) {
         val index = backingList.indexOf(element)
         if (index != -1) {
             backingList.removeAt(index)
@@ -29,7 +28,7 @@ class CustomListModel(private val backingList: MutableList<String>) : AbstractLi
         }
     }
 
-    fun removeElement(index: Int) {
+    fun removeElementAt(index: Int) {
         if (index != -1) {
             backingList.removeAt(index)
             fireIntervalRemoved(this, index, index)
@@ -38,14 +37,16 @@ class CustomListModel(private val backingList: MutableList<String>) : AbstractLi
 }
 
 
-class TodoListPanel(project: Project) {
+class TodoListPanel(project: Project,
+                    todoList: MutableList<String>,
+                    doneList: MutableList<String>
+) {
     val panel = JPanel()
 
-    private val todoList = mutableListOf<String>()
     private val todoListModel = CustomListModel(todoList)
     private val todoJbList = JBList(todoListModel)
 
-    private val alreadyDoneListModel = DefaultListModel<String>()
+    private val alreadyDoneListModel = CustomListModel(doneList)
     private val alreadyDoneList = JBList(alreadyDoneListModel)
 
     private val taskInput = JTextField()
@@ -83,16 +84,16 @@ class TodoListPanel(project: Project) {
         removeButton.addActionListener {
             val selectedIndex = todoJbList.selectedIndex
             if (selectedIndex != -1) {
-                todoListModel.removeElement(selectedIndex)
+                todoListModel.removeElementAt(selectedIndex)
             }
         }
-//
-//        doneButton.addActionListener {
-//            val selectedIndex = shouldBeDoneList.selectedIndex
-//            if (selectedIndex != -1) {
-//                alreadyDoneListModel.addElement(shouldBeDoneList.selectedValue)
-//                shouldBeDoneListModel.removeElementAt(selectedIndex)
-//            }
-//        }
+
+        doneButton.addActionListener {
+            val selectedIndex = todoJbList.selectedIndex
+            if (selectedIndex != -1) {
+                alreadyDoneListModel.addElement(todoJbList.selectedValue)
+                todoListModel.removeElementAt(selectedIndex)
+            }
+        }
     }
 }

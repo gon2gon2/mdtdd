@@ -9,7 +9,10 @@ import javax.swing.JPanel
 class UnifiedToolWindow(project: Project) {
     private val mainPanel = JPanel()
     private val timerPanel = TimerPanel().panel
-    private val todoListPanel = TodoListPanel(project).panel
+    private val todoListPanel = TodoListPanel(project,
+            mutableListOf<String>("A", "B"),
+            mutableListOf<String>("DONE1", "DONE2")
+    ).panel
 
     init {
         mainPanel.layout = BoxLayout(mainPanel, BoxLayout.Y_AXIS)
