@@ -14,8 +14,8 @@ class UnifiedToolWindow(project: Project) {
 
     private val todoListPanel = TodoListPanel(
             project,
-            project.service<TodoStateRepository>().todoList,
-            project.service<TodoStateRepository>().doneList,
+            project.service<TodoStateRepository>().state.todoList,
+            project.service<TodoStateRepository>().state.doneList,
     ).panel
 
     init {
