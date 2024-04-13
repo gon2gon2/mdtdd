@@ -1,6 +1,5 @@
-package com.github.gon2gon2.mdtdd.view.panel
+package com.github.gon2gon2.mdtdd.view.todo
 
-import com.github.gon2gon2.mdtdd.view.CustomListModel
 import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBList
 import java.awt.FlowLayout

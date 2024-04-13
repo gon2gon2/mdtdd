@@ -7,7 +7,7 @@ import com.intellij.openapi.project.Project
 
 @Service(Service.Level.PROJECT)
 class TodoService(project: Project) {
-    private val todoRepository: TodoRepository = project.service<TodoStateRepository>()
+//    private val todoRepository: TodoRepository = project.service<TodoStateRepository>()
     private val todoList = mutableListOf<String>()
 
     fun getLastTodoList(): List<String> {

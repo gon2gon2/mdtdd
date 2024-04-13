@@ -1,4 +1,4 @@
-package com.github.gon2gon2.mdtdd.view
+package com.github.gon2gon2.mdtdd.view.todo
 
 import javax.swing.AbstractListModel
 
