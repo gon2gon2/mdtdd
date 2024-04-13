@@ -1,4 +1,4 @@
-package com.github.gon2gon2.mdtdd.toolwindow.panel
+package com.github.gon2gon2.mdtdd.view.panel
 
 import com.github.gon2gon2.mdtdd.services.TimerService
 import javax.swing.JButton

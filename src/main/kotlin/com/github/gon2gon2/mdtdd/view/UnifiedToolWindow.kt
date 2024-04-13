@@ -1,7 +1,7 @@
-package com.github.gon2gon2.mdtdd.toolwindow
+package com.github.gon2gon2.mdtdd.view
 
-import com.github.gon2gon2.mdtdd.toolwindow.panel.TimerPanel
-import com.github.gon2gon2.mdtdd.toolwindow.panel.TodoListPanel
+import com.github.gon2gon2.mdtdd.view.panel.TimerPanel
+import com.github.gon2gon2.mdtdd.view.panel.TodoListPanel
 import com.intellij.openapi.project.Project
 import javax.swing.BoxLayout
 import javax.swing.JPanel

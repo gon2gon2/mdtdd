@@ -1,40 +1,14 @@
-package com.github.gon2gon2.mdtdd.toolwindow.panel
+package com.github.gon2gon2.mdtdd.view.panel
 
+import com.github.gon2gon2.mdtdd.view.CustomListModel
 import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBList
 import java.awt.FlowLayout
-import javax.swing.AbstractListModel
 import javax.swing.BoxLayout
 import javax.swing.JButton
 import javax.swing.JPanel
 import javax.swing.JScrollPane
 import javax.swing.JTextField
-
-class CustomListModel(private val backingList: MutableList<String>) : AbstractListModel<String>() {
-    override fun getSize(): Int = backingList.size
-
-    override fun getElementAt(index: Int): String = backingList[index]
-
-    fun addElement(element: String) {
-        backingList.add(element)
-        fireIntervalAdded(this, backingList.size - 1, backingList.size - 1)
-    }
-
-    fun removeElementAt(element: String) {
-        val index = backingList.indexOf(element)
-        if (index != -1) {
-            backingList.removeAt(index)
-            fireIntervalRemoved(this, index, index)
-        }
-    }
-
-    fun removeElementAt(index: Int) {
-        if (index != -1) {
-            backingList.removeAt(index)
-            fireIntervalRemoved(this, index, index)
-        }
-    }
-}
 
 
 class TodoListPanel(project: Project,
