@@ -8,17 +8,21 @@ import com.intellij.openapi.project.Project
 @Service(Service.Level.PROJECT)
 class TodoService(project: Project) {
     private val todoRepository: TodoRepository = project.service<TodoStateRepository>()
+    private val todoList = mutableListOf<String>()
 
     fun getLastTodoList(): List<String> {
-        return todoRepository.getAll()
+//        return todoRepository.getAll()
+        return todoList
     }
 
     fun addTodo(todo: String) {
-        todoRepository.add(todo)
+//        todoRepository.add(todo)
+        todoList.add(todo)
     }
 
     fun remove(todoIndex: Int) {
-        todoRepository.remove(todoIndex)
+//        todoRepository.remove(todoIndex)
+        todoList.removeAt(todoIndex)
     }
 
 }
