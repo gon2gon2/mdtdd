@@ -8,7 +8,7 @@ import com.intellij.openapi.components.Storage
 
 @Service(Service.Level.PROJECT)
 @State(
-        name = "TodoList",
+        name = "TodoListState",
         storages = [Storage("TodoList.xml")]
 )
 class TodoStateRepository : SimplePersistentStateComponent<TodoStateRepository.State>(State()) {
