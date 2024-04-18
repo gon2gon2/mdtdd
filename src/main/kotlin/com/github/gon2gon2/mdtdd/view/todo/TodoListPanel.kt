@@ -10,8 +10,8 @@ import javax.swing.JTextField
 
 
 class TodoListPanel(
-        todoList: MutableList<String>,
-        doneList: MutableList<String>,
+    todoList: MutableList<String>,
+    doneList: MutableList<String>,
 ) {
     val panel = JPanel()
 
@@ -27,6 +27,7 @@ class TodoListPanel(
     private val addButton = JButton("Add")
     private val doneButton = JButton("Done")
     private val removeButton = JButton("Remove")
+    private val clearButton = JButton("Clear")
 
     init {
         setupUI()
@@ -42,6 +43,7 @@ class TodoListPanel(
         panel.add(addButton)
         panel.add(doneButton)
         panel.add(removeButton)
+        panel.add(clearButton)
     }
 
     private fun setupActions() {
@@ -66,6 +68,10 @@ class TodoListPanel(
                 doneListModel.addElement(todoJbList.selectedValue)
                 todoListModel.removeElementAt(selectedIndex)
             }
+        }
+
+        clearButton.addActionListener {
+            doneListModel.clearList()
         }
     }
 }

@@ -26,4 +26,12 @@ class CustomListModel(private val backingList: MutableList<String>) : AbstractLi
             fireIntervalRemoved(this, index, index)
         }
     }
+
+    fun clearList() {
+        val oldSize = backingList.size
+        backingList.clear()
+        if (oldSize > 0) {
+            fireIntervalRemoved(this, 0, oldSize - 1)
+        }
+    }
 }
